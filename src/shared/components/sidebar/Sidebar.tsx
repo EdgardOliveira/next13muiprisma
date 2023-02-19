@@ -16,10 +16,10 @@ import WifiIcon from "@mui/icons-material/Wifi";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
-import Link from "next/link";
 import { Environment } from "@/shared/environment";
-import { useSidebarContext } from "../../contexts/SidebarContext";
+import { useSidebarContext } from "@/shared/contexts/SidebarContext";
 import { ReactNode } from "react";
+import Link from "next/link";
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: Environment.SIDEBAR_WIDTH,
@@ -68,15 +68,14 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-//Tipagem do menu
-export interface IMenuProps {
+interface IMenuProps {
   title: string;
   url: string;
-  icon?: ReactNode;
+  icon: ReactNode;
 }
 
-// itens do menu
-const itensMenu: Array<IMenuProps> = [
+//itens do menu
+const sidebarMenuItems: Array<IMenuProps> = [
   { title: "Inicial", url: "/", icon: <HomeIcon /> },
   { title: "Dashboard", url: "/dashboard", icon: <DashboardIcon /> },
   { title: "Grupos", url: "/grupos", icon: <PeopleIcon /> },
@@ -101,8 +100,8 @@ export const Sidebar = () => {
       </DrawerHeader>
       <Divider />
       <List>
-        {itensMenu.map((itemMenu, index) => (
-          <Link key={index} href={itemMenu.url} legacyBehavior>
+        {sidebarMenuItems.map((menuItem, index) => (
+          <Link key={index} href={menuItem.url} legacyBehavior>
             <ListItem key={index} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{
@@ -118,10 +117,10 @@ export const Sidebar = () => {
                     justifyContent: "center",
                   }}
                 >
-                  {itemMenu.icon}
+                  {menuItem.icon}
                 </ListItemIcon>
                 <ListItemText
-                  primary={itemMenu.title}
+                  primary={menuItem.title}
                   sx={{ opacity: isSidebarOpen ? 1 : 0 }}
                 />
               </ListItemButton>
