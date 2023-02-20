@@ -1,4 +1,5 @@
 import { BaseLayout } from "@/shared/components/baseLayout/BaseLayout";
+import ConfirmationDialog from "@/shared/components/confirmationDialog/ConfirmationDialog";
 import TableData from "@/shared/components/tableData/TableData";
 import { deleteData, getAllData } from "@/shared/libs/rest/RESTClient";
 import { IGroupsProps, IResultsProps } from "@/shared/types/Types";
@@ -12,6 +13,8 @@ export default function Groups() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [deleteId, setDeleteId] = useState<string>("");
+  const [openConfirmationDialog, setOpenConfirmationDialog] =
+    useState<boolean>(false);
 
   const endpointURL: string = "groups";
   const router = useRouter();
@@ -81,7 +84,17 @@ export default function Groups() {
   };
 
   const handleDelete = async (id: string) => {
+    setOpenConfirmationDialog(true);
     setDeleteId(id);
+  };
+
+  const handleCancel = () => {
+    setOpenConfirmationDialog(false);
+    setDeleteId("");
+  };
+
+  const handleConfirm = () => {
+    setIsDeleting(true);
   };
 
   useEffect(() => {
@@ -119,6 +132,7 @@ export default function Groups() {
             setIsDeleting(false);
             setDeleteId("");
             setIsLoading(true);
+            setOpenConfirmationDialog(false);
             break;
           case false:
             break;
@@ -143,6 +157,14 @@ export default function Groups() {
           addButton={handleAdd}
         />
       )}
+
+      <ConfirmationDialog
+        title="EXCLUIR REGISTRO?"
+        message="Realmente deseja excluir este registro?"
+        isConfirmationDialogOpened={openConfirmationDialog}
+        onCancelConfirmationDialog={handleCancel}
+        onConfirmConfirmationDialog={handleConfirm}
+      />
     </BaseLayout>
   );
 }
