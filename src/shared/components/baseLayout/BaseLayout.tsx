@@ -1,6 +1,5 @@
-import { Environment } from "@/shared/environment";
 import { Box, CssBaseline } from "@mui/material";
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import { Navbar } from "../navbar/Navbar";
 import { Sidebar } from "../sidebar/Sidebar";
 import { styled } from "@mui/material/styles";
