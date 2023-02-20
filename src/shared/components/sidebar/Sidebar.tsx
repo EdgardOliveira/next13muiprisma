@@ -77,10 +77,10 @@ interface IMenuProps {
 //itens do menu
 const sidebarMenuItems: Array<IMenuProps> = [
   { title: "Inicial", url: "/", icon: <HomeIcon /> },
-  { title: "Dashboard", url: "/dashboard", icon: <DashboardIcon /> },
-  { title: "Grupos", url: "/grupos", icon: <PeopleIcon /> },
-  { title: "Redes", url: "/redes", icon: <WifiIcon /> },
-  { title: "Usuários", url: "/usuarios", icon: <AssignmentIndIcon /> },
+  { title: "Dashboard", url: "/dashboards", icon: <DashboardIcon /> },
+  { title: "Grupos", url: "/groups", icon: <PeopleIcon /> },
+  { title: "Redes", url: "/networks", icon: <WifiIcon /> },
+  { title: "Usuários", url: "/users", icon: <AssignmentIndIcon /> },
 ];
 
 export const Sidebar = () => {
