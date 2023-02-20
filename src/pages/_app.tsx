@@ -9,6 +9,7 @@ import createEmotionCache from "../createEmotionCache";
 import { SidebarProvider } from "@/shared/contexts/SidebarContext";
 import { ConfirmationDialogProvider } from "@/shared/contexts/ConfirmationDialogContext";
 import ConfirmationDialog from "@/shared/components/confirmationDialog/ConfirmationDialog";
+import { SnackbarProvider } from "notistack";
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
@@ -27,7 +28,22 @@ export default function MyApp(props: MyAppProps) {
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <SidebarProvider>
-          <Component {...pageProps} />
+          <SnackbarProvider
+            iconVariant={{
+              success: "✅",
+              error: "✖️",
+              warning: "⚠️",
+              info: "ℹ️",
+            }}
+            maxSnack={5}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            preventDuplicate
+          >
+            <Component {...pageProps} />
+          </SnackbarProvider>
         </SidebarProvider>
       </ThemeProvider>
     </CacheProvider>

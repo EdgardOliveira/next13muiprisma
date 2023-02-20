@@ -6,15 +6,17 @@ import { IGroupsProps, IResultsProps } from "@/shared/types/Types";
 import { DeleteForever, Edit } from "@mui/icons-material";
 import { IconButton, Stack, Tooltip } from "@mui/material";
 import { useRouter } from "next/router";
+import { useSnackbar, VariantType } from "notistack";
 import { useEffect, useState } from "react";
 
 export default function Groups() {
-  const [groups, setGroups] = useState<IGroupsProps[]>();
+  const [groups, setGroups] = useState<IGroupsProps[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [deleteId, setDeleteId] = useState<string>("");
   const [openConfirmationDialog, setOpenConfirmationDialog] =
     useState<boolean>(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const endpointURL: string = "groups";
   const router = useRouter();
@@ -97,6 +99,10 @@ export default function Groups() {
     setIsDeleting(true);
   };
 
+  const handleResponse = (variant: VariantType, message: String) => {
+    enqueueSnackbar(message, { variant });
+  };
+
   useEffect(() => {
     if (isLoading) {
       const fetchData = async () => {
@@ -109,8 +115,10 @@ export default function Groups() {
           case true:
             setIsLoading(false);
             setGroups(data);
+            handleResponse("success", message);
             break;
           case false:
+            handleResponse("error", String(error));
             break;
           default:
             break;
@@ -133,8 +141,10 @@ export default function Groups() {
             setDeleteId("");
             setIsLoading(true);
             setOpenConfirmationDialog(false);
+            handleResponse("success", message);
             break;
           case false:
+            handleResponse("error", String(error));
             break;
           default:
             break;
@@ -149,14 +159,14 @@ export default function Groups() {
       title="Grupos"
       subtitle="Listagem de grupos que acessam o sistema"
     >
-      {!isLoading && (
+      {
         <TableData
           rows={groups}
           columns={columns}
           isLoading={isLoading}
           addButton={handleAdd}
         />
-      )}
+      }
 
       <ConfirmationDialog
         title="EXCLUIR REGISTRO?"
