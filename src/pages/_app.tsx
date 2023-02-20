@@ -7,8 +7,6 @@ import { CacheProvider, EmotionCache } from "@emotion/react";
 import theme from "../theme";
 import createEmotionCache from "../createEmotionCache";
 import { SidebarProvider } from "@/shared/contexts/SidebarContext";
-import { ConfirmationDialogProvider } from "@/shared/contexts/ConfirmationDialogContext";
-import ConfirmationDialog from "@/shared/components/confirmationDialog/ConfirmationDialog";
 import { SnackbarProvider } from "notistack";
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
