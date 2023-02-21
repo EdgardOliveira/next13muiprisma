@@ -11,3 +11,11 @@ export interface IGroupsProps {
   description: string;
   status: "ACTIVE" | "INACTIVE";
 }
+
+export interface IResourcesProps {
+  id: number;
+  name: string;
+  description: string;
+  status: "ACTIVE" | "INACTIVE";
+  permissions: string;
+}
